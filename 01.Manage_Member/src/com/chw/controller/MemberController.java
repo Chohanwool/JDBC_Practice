@@ -9,7 +9,7 @@ import com.chw.view.MemberView;
 public class MemberController {
 
 	/**
-	 * 뷰에서 클라이언트에 의해 요청된 회원 전체 조회 메소드로
+	 * 뷰에서 클라이언트에 의해 요청된 회원 전체 조회 메소드
 	 */
 	public void selectAll() {
 		
@@ -20,8 +20,23 @@ public class MemberController {
 		if (memberList != null) {
 			new MemberView().displayList(memberList);
 		} else {
-			new MemberView().RequestResult();
+			new MemberView().requestResult("현재 등록된 회원이 없습니다.");
 		}
 	}
 
+	/**
+	 * 뷰에서 클라이언트에 의해 요청된 회원 추가 메소드
+	 */
+	public void insertMember(Member m) {
+		
+		// 결과는 int타입으로 반환된다.
+		int result = new MemberService().insertMember(m);
+		
+		if (result > 0) {
+			new MemberView().requestResult("신규 회원 추가 성공!!");
+		} else {
+			new MemberView().requestResult("신규 회원 추가 실패!!");
+		}
+		
+	}
 }

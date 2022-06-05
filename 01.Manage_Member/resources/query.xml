@@ -22,4 +22,23 @@
       FROM
       	  MEMBER
 </entry>
+<entry key="insertMember">
+	INSERT
+	  INTO
+	MEMBER
+	VALUES
+		  (
+		   SEQ_USERNO.NEXTVAL,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?,
+		   ?
+		   )
+</entry>
 </properties>

@@ -1,5 +1,6 @@
 package com.chw.view;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,7 +36,7 @@ public class MemberView {
 				selectAll();
 				break;
 			case 2 :
-				System.out.println("2번 메뉴 호출");
+				insertMember();
 				break;
 			case 3 :
 				System.out.println("3번 메뉴 호출");
@@ -70,6 +71,42 @@ public class MemberView {
 		
 	}
 	
+	private void insertMember() {
+		
+		System.out.println("========== 신규 회원 추가 ==========");
+		
+		System.out.println("아이디 입력 > ");
+		String userId = sc.nextLine();
+		System.out.println("비밀번호 입력 > ");
+		String userPwd = sc.nextLine();
+		System.out.println("이름 입력 > ");
+		String userName = sc.nextLine();
+		System.out.println("성별 입력 ( M , F ) > ");
+		String gender = sc.nextLine();
+		System.out.println("나이 입력 > ");
+		int age = sc.nextInt();
+		sc.nextLine();
+		System.out.println("이메일 입력 > ");
+		String email = sc.nextLine();
+		System.out.println("연락처 입력 > ");
+		String phone = sc.nextLine();
+		System.out.println("주소 입력 (입력하지 않으면 기본값 입력됩니다.)> ");
+		String address = sc.nextLine();
+		System.out.println("생년월일 입력 (YYYY-MM-DD) > ");
+		String birthDay = sc.nextLine();
+		System.out.println("짧은 자기 소개 > ");
+		String info = sc.nextLine();
+		
+		// vo객체에서 생년월일은 Date 객체로 받아야한다.
+		// String으로 받은 값을 Date 타입으로 변환 => valueOf() 사용
+		// 생년월일값을 받을때에는 YYYY-MM-DD 포멧으로 받아줘야한다.
+		Date dateOfBirth = Date.valueOf(birthDay);
+		
+		Member m = new Member(userId, userPwd, userName, gender, age, email, phone, address, info, dateOfBirth);
+		
+		new MemberController().insertMember(m);
+		
+	}
 	// ------------------------------------------------------------------------------------------------------------------------
 	public void displayList(ArrayList<Member> memberList) {
 		
@@ -78,8 +115,8 @@ public class MemberView {
 		}
 	}
 
-	public void RequestResult() {
-		System.out.println("전체 회원 정보 조회에 실패 하였습니다.");
+	public void requestResult(String msg) {
+		System.out.println(msg);
 		
 	}
 

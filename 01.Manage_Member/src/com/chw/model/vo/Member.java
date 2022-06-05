@@ -51,6 +51,21 @@ public class Member {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	public Member(String userId, String userPwd, String userName, String gender, int age, String email, String phone,
+			String address, String info, Date dateOfBirth) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.gender = gender;
+		this.age = age;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.info = info;
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public Member(int userNo, String userId, String userPwd, String userName, String gender, int age, String email,
 			String phone, String address, String info, Date dateOfBirth) {
 		super();
