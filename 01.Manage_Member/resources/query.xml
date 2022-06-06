@@ -80,4 +80,11 @@
 	 WHERE
 		  ADDRESS LIKE ?
 </entry>
+<entry key="deleteMember">
+	DELETE
+	  FROM
+	  	  MEMBER
+	 WHERE
+	 	  USERID = ?
+</entry>
 </properties>

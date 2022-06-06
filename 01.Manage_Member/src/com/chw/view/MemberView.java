@@ -24,7 +24,7 @@ public class MemberView {
 			System.out.println("2. 신규 회원 추가");
 			System.out.println("3. 회원 검색(아이디)");
 			System.out.println("4. 회원 검색(주소)");
-			System.out.println("5. 회원 정보 수정");
+			System.out.println("5. 회원 탈퇴");
 			System.out.println("0. 프로그램 종료");
 			
 			System.out.println("\n메뉴 번호를 입력하세요 > ");
@@ -45,7 +45,7 @@ public class MemberView {
 				searchByKeyword();
 				break;
 			case 5 :
-				System.out.println("5번 메뉴 호출");
+				deleteMember();
 				break;
 			case 0 :
 				System.out.println("프로그램을 종료합니다.");
@@ -125,6 +125,20 @@ public class MemberView {
 		String keyword = sc.nextLine();
 		
 		new MemberController().searchByKeyword(keyword);
+		
+	}
+
+	private void deleteMember() {
+		
+		System.out.println("===== 회원 삭제 =====");
+		
+		System.out.println("삭제할 회원 아이디 입력 > ");
+		String userId = sc.nextLine();
+		
+		System.out.println("비밀번호 확인 > ");
+		String userPwd = sc.nextLine();
+		
+		new MemberController().deleteMember(userId, userPwd);
 		
 	}
 	// ------------------------------------------------------------------------------------------------------------------------

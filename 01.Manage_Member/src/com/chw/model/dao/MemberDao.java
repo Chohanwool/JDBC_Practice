@@ -172,6 +172,30 @@ public class MemberDao {
 		return matchedMember;
 	}
 
+	public int deleteMember(Connection conn, Member m) {
+		
+		// 필요변수 세팅
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Template.close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 	
 	

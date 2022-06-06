@@ -6,6 +6,8 @@ import com.chw.model.service.MemberService;
 import com.chw.model.vo.Member;
 import com.chw.view.MemberView;
 
+import oracle.net.aso.m;
+
 public class MemberController {
 
 	/**
@@ -69,4 +71,38 @@ public class MemberController {
 		}
 		
 	}
+
+	public void deleteMember(String userId, String userPwd) {
+		
+		// 결과는 int형으로 반환 됨
+		int result = 0;
+		
+		Member m = new MemberService().searchById(userId);
+		
+		if (m != null) {
+			if (m.getUserPwd().equals(userPwd)) {
+				result =  new MemberService().deleteMember(m);
+			} else {
+				new MemberView().requestResult("잘못된 비밀번호 입니다.");
+			} 
+		} else {
+			new MemberView().requestResult("존재하지 않는 회원 입니다.");
+		}
+		
+		if (result > 0) {
+			new MemberView().requestResult("회원 삭제 성공!!");
+		} else {
+			new MemberView().requestResult("회원 삭제 실패!!");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

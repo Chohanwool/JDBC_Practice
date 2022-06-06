@@ -57,4 +57,18 @@ public class MemberService {
 		return matchedMember;
 	}
 
+	public int deleteMember(Member m) {
+		
+		int result = new MemberDao().deleteMember(conn, m);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	
+
 }
