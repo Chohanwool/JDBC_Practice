@@ -38,4 +38,23 @@ public class MemberService {
 		return result;
 	}
 
+	
+	public Member searchById(String search) {
+		
+		Member m = new MemberDao().searchById(conn, search);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public ArrayList<Member> searchByKeyword(String keyword) {
+		
+		ArrayList<Member> matchedMember = new MemberDao().searchByKeyword(conn, keyword);
+		
+		close(conn);
+		
+		return matchedMember;
+	}
+
 }

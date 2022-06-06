@@ -39,10 +39,10 @@ public class MemberView {
 				insertMember();
 				break;
 			case 3 :
-				System.out.println("3번 메뉴 호출");
+				searchById();
 				break;
 			case 4 :
-				System.out.println("4번 메뉴 호출");
+				searchByKeyword();
 				break;
 			case 5 :
 				System.out.println("5번 메뉴 호출");
@@ -71,6 +71,9 @@ public class MemberView {
 		
 	}
 	
+	/**
+	 * 신규 회원 추가 요청(폼)
+	 */
 	private void insertMember() {
 		
 		System.out.println("========== 신규 회원 추가 ==========");
@@ -107,6 +110,23 @@ public class MemberView {
 		new MemberController().insertMember(m);
 		
 	}
+	
+	private void searchById() {
+		System.out.println("\n아이디로 검색하기 > ");
+		String search = sc.nextLine();
+		
+		new MemberController().searchById(search);
+	}
+	
+	private void searchByKeyword() {
+		
+		System.out.println("키워드 검색(주소) > ");
+		
+		String keyword = sc.nextLine();
+		
+		new MemberController().searchByKeyword(keyword);
+		
+	}
 	// ------------------------------------------------------------------------------------------------------------------------
 	public void displayList(ArrayList<Member> memberList) {
 		
@@ -118,6 +138,10 @@ public class MemberView {
 	public void requestResult(String msg) {
 		System.out.println(msg);
 		
+	}
+
+	public void displayMember(Member m) {
+		System.out.println(m);
 	}
 
 }

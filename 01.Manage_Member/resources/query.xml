@@ -21,6 +21,9 @@
 		  INFO
       FROM
       	  MEMBER
+     ORDER 
+     	BY
+          USERNO
 </entry>
 <entry key="insertMember">
 	INSERT
@@ -40,5 +43,41 @@
 		   ?,
 		   ?
 		   )
+</entry>
+<entry key="selectById">
+	SELECT
+		  USERNO,
+		  USERID,
+		  USERPWD,
+		  USERNAME,
+		  GENDER,
+		  AGE,
+		  EMAIL,
+		  PHONE,
+		  ADDRESS,
+		  B_DAY,
+		  INFO
+	  FROM
+	  	  MEMBER
+	 WHERE
+	 	  USERID = ?
+</entry>
+<entry key="searchByKeyword">
+	SELECT
+	      USERNO,
+	      USERID,
+		  USERPWD,
+		  USERNAME,
+		  GENDER,
+		  AGE,
+		  EMAIL,
+		  PHONE,
+		  ADDRESS,
+		  B_DAY,
+		  INFO
+	  FROM
+		  MEMBER
+	 WHERE
+		  ADDRESS LIKE ?
 </entry>
 </properties>

@@ -92,4 +92,98 @@ public class MemberDao {
 		return result;
 	}
 
+	
+	public Member searchById(Connection conn, String search) {
+		
+		// 필요 변수 세팅
+		PreparedStatement pstmt = null;
+		ResultSet rSet = null;
+		Member m = null;
+		
+		String sql = prop.getProperty("selectById");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rSet = pstmt.executeQuery();
+			
+		if (rSet.next()) {
+			m = new Member(rSet.getInt("USERNO"),
+						   rSet.getString("USERID"),
+						   rSet.getString("USERPWD"),
+						   rSet.getString("USERNAME"),
+						   rSet.getString("GENDER"),
+						   rSet.getInt("AGE"),
+						   rSet.getString("EMAIL"),
+						   rSet.getString("PHONE"),
+						   rSet.getString("ADDRESS"),
+						   rSet.getString("INFO"),
+						   rSet.getDate("B_DAY"));
+		} else {
+			return m;
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Template.close(rSet);
+			Template.close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public ArrayList<Member> searchByKeyword(Connection conn, String keyword) {
+		
+		// 필요변수 세팅
+		PreparedStatement pstmt = null;
+		ResultSet rSet = null;
+		ArrayList<Member> matchedMember = new ArrayList<Member>();
+		
+		String sql = prop.getProperty("searchByKeyword");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ("%" + keyword + "%"));
+			
+			rSet = pstmt.executeQuery();
+			
+			while (rSet.next()) {
+				matchedMember.add(new Member(rSet.getInt("USERNO"),
+											 rSet.getString("USERID"),
+											 rSet.getString("USERPWD"),
+											 rSet.getString("USERNAME"),
+											 rSet.getString("GENDER"),
+											 rSet.getInt("AGe"),
+											 rSet.getString("EMAIL"),
+											 rSet.getString("PHONE"),
+											 rSet.getString("ADDRESS"),
+											 rSet.getString("INFO"),
+											 rSet.getDate("B_DAY")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Template.close(rSet);
+			Template.close(pstmt);
+		}
+		
+		return matchedMember;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
