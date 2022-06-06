@@ -172,18 +172,22 @@ public class MemberDao {
 		return matchedMember;
 	}
 
-	public int deleteMember(Connection conn, Member m) {
+	public int modifyMember(Connection conn, String userId, String userPwd, String email, String phone, String address, String info) {
 		
 		// 필요변수 세팅
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String sql = prop.getProperty("deleteMember");
+		String sql = prop.getProperty("modifyMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(1, m.getUserId());
+			pstmt.setString(1, userPwd);
+			pstmt.setString(2, email);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, address);
+			pstmt.setString(5, info);
+			pstmt.setString(6, userId);
 			
 			result = pstmt.executeUpdate();
 			
@@ -195,6 +199,33 @@ public class MemberDao {
 		
 		return result;
 	}
+
+	public int deleteMember(Connection conn, String userId) {
+		
+		// 필요변수 세팅
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			Template.close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+
 
 	
 	

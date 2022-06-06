@@ -72,22 +72,23 @@ public class MemberController {
 		
 	}
 
+	public void modifyMember(String userId, String userPwd, String email, String phone, String address, String info) {
+		
+		// 결과 int형으로 반환
+		int result = new MemberService().modifyMember(userId, userPwd, email, phone, address, info);
+		
+		if (result > 0) {
+			new MemberView().requestResult("회원 정보 수정 성공");
+		} else {
+			new MemberView().requestResult("회원 정보 수정 실패");
+		}
+		
+	}
+	
 	public void deleteMember(String userId, String userPwd) {
 		
 		// 결과는 int형으로 반환 됨
-		int result = 0;
-		
-		Member m = new MemberService().searchById(userId);
-		
-		if (m != null) {
-			if (m.getUserPwd().equals(userPwd)) {
-				result =  new MemberService().deleteMember(m);
-			} else {
-				new MemberView().requestResult("잘못된 비밀번호 입니다.");
-			} 
-		} else {
-			new MemberView().requestResult("존재하지 않는 회원 입니다.");
-		}
+		int result = new MemberService().deleteMember(userId);
 		
 		if (result > 0) {
 			new MemberView().requestResult("회원 삭제 성공!!");
@@ -96,6 +97,22 @@ public class MemberController {
 		}
 		
 	}
+
+	public boolean checkIdPwd(String userId, String pwdCheck) {
+		
+		boolean isAllowed = false;
+		Member m = new MemberService().searchById(userId);
+		
+		if (m != null) {			
+			if (m.getUserPwd().equals(pwdCheck)) {
+				isAllowed = true;
+			} else {
+				return isAllowed;
+			}
+		}
+		return isAllowed;
+	}
+
 	
 	
 	

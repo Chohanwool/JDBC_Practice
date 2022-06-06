@@ -57,9 +57,22 @@ public class MemberService {
 		return matchedMember;
 	}
 
-	public int deleteMember(Member m) {
+	public int modifyMember(String userId, String userPwd, String email, String phone, String address, String info) {
 		
-		int result = new MemberDao().deleteMember(conn, m);
+		int result = new MemberDao().modifyMember(conn, userId, userPwd, email, phone, address, info);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(String userId) {
+		
+		int result = new MemberDao().deleteMember(conn, userId);
 		
 		if (result > 0) {
 			commit(conn);
@@ -68,6 +81,11 @@ public class MemberService {
 		}
 		return result;
 	}
+
+	
+
+	
+	
 
 	
 

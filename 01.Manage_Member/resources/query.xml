@@ -87,4 +87,15 @@
 	 WHERE
 	 	  USERID = ?
 </entry>
+<entry key="modifyMember">
+	UPDATE MEMBER
+	   SET
+	      USERPWD = ?,
+	      EMAIL = ?,
+	      PHONE = ?,
+	      ADDRESS = ?,
+	      INFO = ?
+	 WHERE
+	 	  USERID = ?
+</entry>
 </properties>

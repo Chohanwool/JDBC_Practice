@@ -24,7 +24,8 @@ public class MemberView {
 			System.out.println("2. 신규 회원 추가");
 			System.out.println("3. 회원 검색(아이디)");
 			System.out.println("4. 회원 검색(주소)");
-			System.out.println("5. 회원 탈퇴");
+			System.out.println("5. 회원 정보 수정");
+			System.out.println("6. 회원 탈퇴");
 			System.out.println("0. 프로그램 종료");
 			
 			System.out.println("\n메뉴 번호를 입력하세요 > ");
@@ -45,6 +46,9 @@ public class MemberView {
 				searchByKeyword();
 				break;
 			case 5 :
+				modifyMember();
+				break;
+			case 6 :
 				deleteMember();
 				break;
 			case 0 :
@@ -128,6 +132,38 @@ public class MemberView {
 		
 	}
 
+	private void modifyMember() {
+		
+		System.out.println("===== 회원 정보 수정 =====");
+		
+		System.out.println("수정할 회원 아이디 > ");
+		String userId = sc.nextLine();
+		System.out.println("비밀번호 확인 > ");
+		String checkPwd = sc.nextLine();
+		
+		boolean isAllowed = checkIdPwd(userId, checkPwd);
+		
+		if (isAllowed) {
+			
+			System.out.println("\n**** 수정할 정보들을 입력해주세요 ****");
+			System.out.println("비밀번호 > ");
+			String userPwd = sc.nextLine();
+			System.out.println("이메일 > ");
+			String email = sc.nextLine();
+			System.out.println("전화번호 > ");
+			String phone = sc.nextLine();
+			System.out.println("주소 > ");
+			String address = sc.nextLine();
+			System.out.println("짧은 인사글 > ");
+			String info = sc.nextLine();
+			
+			new MemberController().modifyMember(userId, userPwd, email, phone, address, info);
+		} else {
+			System.out.println("아이디/비밀번호를 확인하세요.");
+		}
+		
+	}
+	
 	private void deleteMember() {
 		
 		System.out.println("===== 회원 삭제 =====");
@@ -136,14 +172,26 @@ public class MemberView {
 		String userId = sc.nextLine();
 		
 		System.out.println("비밀번호 확인 > ");
-		String userPwd = sc.nextLine();
+		String checkPwd = sc.nextLine();
 		
-		new MemberController().deleteMember(userId, userPwd);
+		boolean isAllowed = checkIdPwd(userId, checkPwd);
+			
+		if (isAllowed) {
+			new MemberController().deleteMember(userId, checkPwd);			
+		} else {
+			System.out.println("아이디/비밀번호를 확인해 주세요");
+		}
 		
+	}
+
+	private boolean checkIdPwd(String userId, String checkPwd) {
+		boolean isAllowed = false;
+		isAllowed = new MemberController().checkIdPwd(userId, checkPwd);
+		
+		return isAllowed;
 	}
 	// ------------------------------------------------------------------------------------------------------------------------
 	public void displayList(ArrayList<Member> memberList) {
-		
 		for(Member m : memberList) {
 			System.out.println(m);
 		}
